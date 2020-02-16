@@ -1,0 +1,1 @@
+# nwn-dotnet-module-template
