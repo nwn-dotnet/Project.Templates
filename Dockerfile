@@ -1,0 +1,45 @@
+# build the dotnet
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS DotnetLibrary
+ADD ./src /Build
+WORKDIR /Build
+RUN dotnet publish -c Release
+# our final image
+FROM nwnxee/unified:latest
+LABEL maintainer "urothis@gmail.com"
+# copy dotnet library to nwnxee image
+COPY --from=DotnetLibrary /Build/bin/Release/netcoreapp3.1/publish /nwn/
+# default is set to use dockerdemo, if you want it removed from your final image uncomment below
+# RUN rm /nwn/data/data/mod/DockerDemo.mod
+# can be removed when https://github.com/nwnxee/unified/pull/786 is pulled
+RUN apt update && apt install apt-transport-https dotnet-sdk-3.1 -y
+# dotNET
+ENV NWNX_DOTNET_SKIP=n
+ENV NWNX_DOTNET_ASSEMBLY=/nwn/NWN
+# often values
+ENV NWN_MODULE=DockerDemo
+ENV NWN_PUBLICSERVER=0
+ENV NWNX_CORE_LOG_LEVEL=1
+ENV NWNX_CORE_SHUTDOWN_SCRIPT=_mod_shutdown
+# might not be needed soon
+ENV NWNX_REDIS_SKIP=n
+ENV NWNX_REDIS_HOST=redis
+ENV NWNX_REDIS_PUBSUB_SCRIPT=ps_main
+ENV NWNX_REDIS_PUBSUB_CHANNELS=discord
+# private values | pulled from gitlab
+# manually set these unless using an external build service
+# remove the ARG lines, and feed the values desired using ENV
+ARG NWNX_WEBHOOK_PRIVATE_CHANNEL
+ARG NWNX_WEBHOOK_PUBLIC_CHANNEL
+ARG NWN_DMPASSWORD
+ENV NWNX_WEBHOOK_PRIVATE_CHANNEL=${NWNX_WEBHOOK_PRIVATE_CHANNEL} NWNX_WEBHOOK_PUBLIC_CHANNEL=${NWNX_WEBHOOK_PUBLIC_CHANNEL} NWN_DMPASSWORD=${NWN_DMPASSWORD}
+# NWNX Plugins
+ENV NWNX_ADMINISTRATION_SKIP=n NWNX_APPEARANCE_SKIP=n NWNX_AREA_SKIP=n NWNX_CHAT_SKIP=n NWNX_COMBATMODES_SKIP=n NWNX_CREATURE_SKIP=n NWNX_DAMAGE_SKIP=n NWNX_DATA_SKIP=n
+ENV NWNX_DIALOG_SKIP=n NWNX_ELC_SKIP=n NWNX_ENCOUNTER_SKIP=n NWNX_EVENTS_SKIP=n NWNX_FEEDBACK_SKIP=n NWNX_ITEM_SKIP=n NWNX_OBJECT_SKIP=n NWNX_PLAYER_SKIP=n NWNX_RACE_SKIP=n
+ENV NWNX_UTIL_SKIP=n NWNX_VISIBILITY_SKIP=n NWNX_WEAPON_SKIP=n NWNX_WEBHOOK_SKIP=n NWNX_RENAME_SKIP=n NWNX_REVEAL_SKIP=n NWNX_TRACKING_SKIP=n NWNX_TIME_SKIP=n NWNX_TWEAKS_SKIP=n
+# influx DB
+ENV NWNX_METRICS_INFLUXDB_HOST=influxdb NWNX_METRICS_INFLUXDB_PORT=8089 NWNX_METRICS_INFLUXDB_SKIP=n
+# tweaks
+ENV NWNX_TWEAKS_DISABLE_MONK_ABILITIES_WHEN_POLYMORPHED=true NWNX_TWEAKS_DISABLE_PAUSE=true NWNX_TWEAKS_FIX_GREATER_SANCTUARY_BUG=true
+# vanilla nwserver flags
+ENV NWN_AUTOSAVEINTERVAL=0 NWN_DIFFICULTY=3 NWN_ELC=1 NWN_GAMETYPE=0 NWN_ILR=1 NWN_MAXCLIENTS=255 NWN_MINLEVEL=1 NWN_MAXLEVEL=40
+ENV NWN_ONEPARTY=0 NWN_PAUSEANDPLAY=0 NWN_PORT=5121 NWN_PVP=2 NWN_RELOADWHENEMPTY=0 NWN_SERVERVAULT=1

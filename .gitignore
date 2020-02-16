@@ -1,0 +1,9 @@
+data/
+logs/
+database/
+.idea/
+.vscode
+obj/
+server/nwserver-*
+server/modules/
+server/cryptographic_secret
