@@ -283,6 +283,18 @@ namespace NWN.NWNX
             Internal.NativeFunctions.nwnxCallFunction();
         }
 
+        /// Get the name of the tile model from any location.
+        /// oArea The area name.
+        /// fTileX, fTileY The coordinates of the tile.
+        public static void GetTileModelResRef(uint area, float tileX, float tileY)
+        {
+            Internal.NativeFunctions.nwnxSetFunction(PLUGIN_NAME, "GetTileModelResRef");
+            Internal.NativeFunctions.nwnxPushFloat(tileY);
+            Internal.NativeFunctions.nwnxPushFloat(tileX);
+            Internal.NativeFunctions.nwnxPushObject(area);
+            Internal.NativeFunctions.nwnxCallFunction();
+        }
+
         // Create and return a generic trigger (square shaped of specified size) at a location.
         // oArea The area object.
         // fX, fY, fZ The position to create the trigger.

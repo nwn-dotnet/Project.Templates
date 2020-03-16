@@ -7,3 +7,4 @@ obj/
 server/nwserver-*
 server/modules/
 server/cryptographic_secret
+/.vs/Project
