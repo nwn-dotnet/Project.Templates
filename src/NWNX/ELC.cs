@@ -50,6 +50,7 @@ namespace NWN.NWNX
         public static void SetValidationFailureMessageStrRef(int strRef)
         {
             Internal.NativeFunctions.nwnxSetFunction(PLUGIN_NAME, "SetValidationFailureMessageStrRef");
+            Internal.NativeFunctions.nwnxPushInt(strRef);
             Internal.NativeFunctions.nwnxCallFunction();
         }
 
