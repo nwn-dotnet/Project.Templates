@@ -1,16 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <EnableDynamicLoading>true</EnableDynamicLoading>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <EnableDynamicLoading>true</EnableDynamicLoading>
+        <LangVersion>8.0</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
 
-  <Target Name="NWN" AfterTargets="Build">
     <ItemGroup>
-      <AllOutputs Include="$(OutputPath)$(MSBuildProjectName).dll" />
-      <AllOutputs Include="$(OutputPath)$(MSBuildProjectName).pdb" />
-      <AllOutputs Include="$(OutputPath)$(MSBuildProjectName).runtimeconfig.json" />
-      <AllOutputs Include="$(OutputPath)$(MSBuildProjectName).deps.json" />
+      <Folder Include=".\DeX\Area" />
+      <Folder Include=".\DeX\Database" />
+      <Folder Include=".\DeX\Module" />
+      <Folder Include=".\DeX\Player" />
+      <Folder Include=".\DeX\Tracking" />
     </ItemGroup>
-  </Target>
+
+    <Target Name="NWN" AfterTargets="Build">
+        <ItemGroup>
+            <AllOutputs Include="$(OutputPath)$(MSBuildProjectName).dll" />
+            <AllOutputs Include="$(OutputPath)$(MSBuildProjectName).pdb" />
+            <AllOutputs Include="$(OutputPath)$(MSBuildProjectName).runtimeconfig.json" />
+            <AllOutputs Include="$(OutputPath)$(MSBuildProjectName).deps.json" />
+        </ItemGroup>
+    </Target>
 </Project>

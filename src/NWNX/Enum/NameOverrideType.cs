@@ -1,10 +1,8 @@
-﻿namespace NWN.NWNX.Enum
-{
-    public enum NameOverrideType
-    {
-        Default,
-        Obfuscate,
-        Override,
-        Anonymous
-    }
+﻿namespace NWN.NWNX.Enum {
+	public enum NameOverrideType {
+		Default,
+		Obfuscate,
+		Override,
+		Anonymous
+	}
 }

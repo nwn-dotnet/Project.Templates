@@ -1,57 +1,52 @@
 using System;
 using NWN.NWNX.Enum;
 
-namespace NWN.NWNX
-{
-    public static class ItemProperty
-    {
-        private const string PLUGIN_NAME = "NWNX_ItemProperty";
+namespace NWN.NWNX {
+	public static class ItemProperty {
+		private const string PLUGIN_NAME = "NWNX_ItemProperty";
 
-        // Convert native itemproperty type to unpacked structure
-        public static ItemPropertyUnpacked UnpackIP(NWN.ItemProperty ip)
-        {
-            Internal.NativeFunctions.nwnxSetFunction(PLUGIN_NAME, "UnpackIP");
+		// Convert native itemproperty type to unpacked structure
+		public static ItemPropertyUnpacked UnpackIP(NWN.ItemProperty ip) {
+			Internal.NativeFunctions.nwnxSetFunction(PLUGIN_NAME, "UnpackIP");
 
-            Internal.NativeFunctions.nwnxPushItemProperty(ip.Handle);
-            Internal.NativeFunctions.nwnxCallFunction();
+			Internal.NativeFunctions.nwnxPushItemProperty(ip.Handle);
+			Internal.NativeFunctions.nwnxCallFunction();
 
-            return new ItemPropertyUnpacked
-            {
-                ItemPropertyID = Internal.NativeFunctions.nwnxPopInt(),
-                Property = Internal.NativeFunctions.nwnxPopInt(),
-                SubType = Internal.NativeFunctions.nwnxPopInt(),
-                CostTable = Internal.NativeFunctions.nwnxPopInt(),
-                CostTableValue = Internal.NativeFunctions.nwnxPopInt(),
-                Param1 = Internal.NativeFunctions.nwnxPopInt(),
-                Param1Value = Internal.NativeFunctions.nwnxPopInt(),
-                UsesPerDay = Internal.NativeFunctions.nwnxPopInt(),
-                ChanceToAppear = Internal.NativeFunctions.nwnxPopInt(),
-                IsUseable = Convert.ToBoolean(Internal.NativeFunctions.nwnxPopInt()),
-                SpellID = Internal.NativeFunctions.nwnxPopInt(),
-                Creator = Internal.NativeFunctions.nwnxPopObject().AsObject(),
-                Tag = Internal.NativeFunctions.nwnxPopString()
-            };
-        }
+			return new ItemPropertyUnpacked {
+				ItemPropertyID = Internal.NativeFunctions.nwnxPopInt(),
+				Property = Internal.NativeFunctions.nwnxPopInt(),
+				SubType = Internal.NativeFunctions.nwnxPopInt(),
+				CostTable = Internal.NativeFunctions.nwnxPopInt(),
+				CostTableValue = Internal.NativeFunctions.nwnxPopInt(),
+				Param1 = Internal.NativeFunctions.nwnxPopInt(),
+				Param1Value = Internal.NativeFunctions.nwnxPopInt(),
+				UsesPerDay = Internal.NativeFunctions.nwnxPopInt(),
+				ChanceToAppear = Internal.NativeFunctions.nwnxPopInt(),
+				IsUseable = Convert.ToBoolean(Internal.NativeFunctions.nwnxPopInt()),
+				SpellID = Internal.NativeFunctions.nwnxPopInt(),
+				Creator = Internal.NativeFunctions.nwnxPopObject().AsObject(),
+				Tag = Internal.NativeFunctions.nwnxPopString()
+			};
+		}
 
-        // Convert unpacked itemproperty structure to native type.
-        public static NWN.ItemProperty PackIP(ItemPropertyUnpacked itemProperty)
-        {
-            Internal.NativeFunctions.nwnxSetFunction(PLUGIN_NAME, "PackIP");
-            Internal.NativeFunctions.nwnxPushString(itemProperty.Tag);
-            Internal.NativeFunctions.nwnxPushObject(itemProperty.Creator);
-            Internal.NativeFunctions.nwnxPushInt(itemProperty.SpellID);
-            Internal.NativeFunctions.nwnxPushInt(itemProperty.IsUseable ? 1 : 0);
-            Internal.NativeFunctions.nwnxPushInt(itemProperty.ChanceToAppear);
-            Internal.NativeFunctions.nwnxPushInt(itemProperty.UsesPerDay);
-            Internal.NativeFunctions.nwnxPushInt(itemProperty.Param1Value);
-            Internal.NativeFunctions.nwnxPushInt(itemProperty.Param1);
-            Internal.NativeFunctions.nwnxPushInt(itemProperty.CostTableValue);
-            Internal.NativeFunctions.nwnxPushInt(itemProperty.CostTable);
-            Internal.NativeFunctions.nwnxPushInt(itemProperty.SubType);
-            Internal.NativeFunctions.nwnxPushInt(itemProperty.Property);
-            Internal.NativeFunctions.nwnxPushInt(itemProperty.ItemPropertyID);
-            Internal.NativeFunctions.nwnxCallFunction();
-            return new NWN.ItemProperty(Internal.NativeFunctions.nwnxPopItemProperty());
-        }
-    }
+		// Convert unpacked itemproperty structure to native type.
+		public static NWN.ItemProperty PackIP(ItemPropertyUnpacked itemProperty) {
+			Internal.NativeFunctions.nwnxSetFunction(PLUGIN_NAME, "PackIP");
+			Internal.NativeFunctions.nwnxPushString(itemProperty.Tag);
+			Internal.NativeFunctions.nwnxPushObject(itemProperty.Creator!);
+			Internal.NativeFunctions.nwnxPushInt(itemProperty.SpellID);
+			Internal.NativeFunctions.nwnxPushInt(itemProperty.IsUseable ? 1 : 0);
+			Internal.NativeFunctions.nwnxPushInt(itemProperty.ChanceToAppear);
+			Internal.NativeFunctions.nwnxPushInt(itemProperty.UsesPerDay);
+			Internal.NativeFunctions.nwnxPushInt(itemProperty.Param1Value);
+			Internal.NativeFunctions.nwnxPushInt(itemProperty.Param1);
+			Internal.NativeFunctions.nwnxPushInt(itemProperty.CostTableValue);
+			Internal.NativeFunctions.nwnxPushInt(itemProperty.CostTable);
+			Internal.NativeFunctions.nwnxPushInt(itemProperty.SubType);
+			Internal.NativeFunctions.nwnxPushInt(itemProperty.Property);
+			Internal.NativeFunctions.nwnxPushInt(itemProperty.ItemPropertyID);
+			Internal.NativeFunctions.nwnxCallFunction();
+			return new NWN.ItemProperty(Internal.NativeFunctions.nwnxPopItemProperty());
+		}
+	}
 }

@@ -1,15 +1,13 @@
-﻿namespace NWN.NWNX.Enum
-{
-    public enum TimingBarType
-    {
-        Flag = 1,
-        Recover = 2,
-        Disarm = 3,
-        Examine = 4,
-        Set = 5,
-        Rest = 6,
-        Unlock = 7,
-        Lock = 8,
-        Custom = 10
-    }
+﻿namespace NWN.NWNX.Enum {
+	public enum TimingBarType {
+		Flag = 1,
+		Recover,
+		Disarm,
+		Examine,
+		Set,
+		Rest,
+		Unlock,
+		Lock,
+		Custom
+	}
 }
