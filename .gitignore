@@ -8,3 +8,4 @@ server/nwserver-*
 server/modules/
 server/cryptographic_secret
 /.vs/Project
+server/settings.tml

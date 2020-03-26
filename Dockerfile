@@ -1,5 +1,5 @@
 # build the dotnet
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1.102 AS DotnetLibrary
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1.102 AS DotnetLibraryBuild
 ADD ./src /Build
 WORKDIR /Build
 RUN dotnet publish -c Release
@@ -7,7 +7,7 @@ RUN dotnet publish -c Release
 FROM nwnxee/unified:4572a05
 LABEL maintainer "urothis@gmail.com"
 # copy dotnet library to nwnxee image
-COPY --from=DotnetLibrary /Build/bin/Release/netcoreapp3.1/publish /nwn/data/data/
+COPY --from=DotnetLibraryBuild /Build/bin/Release/netcoreapp3.1/publish /nwn/data/data/
 # default is set to use dockerdemo, if you want it removed from your final image uncomment below
 # RUN rm /nwn/data/data/mod/DockerDemo.mod
 # dotNET
