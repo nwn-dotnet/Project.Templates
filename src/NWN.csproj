@@ -7,14 +7,6 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include=".\DeX\Area" />
-      <Folder Include=".\DeX\Database" />
-      <Folder Include=".\DeX\Module" />
-      <Folder Include=".\DeX\Player" />
-      <Folder Include=".\DeX\Tracking" />
-    </ItemGroup>
-
     <Target Name="NWN" AfterTargets="Build">
         <ItemGroup>
             <AllOutputs Include="$(OutputPath)$(MSBuildProjectName).dll" />
