@@ -375,7 +375,7 @@ namespace NWN.NWNX {
 			MicrosoftXboxone = 60,
 			SonyPs4 = 70
 		}
-		
+
 		// Returns the platform ID of the given player (NWNX_PLAYER_PLATFORM_*)
 		public static PlatformID GetPlatformId(uint player) {
 			Internal.NativeFunctions.nwnxSetFunction(PLUGIN_NAME, "GetPlatformId");

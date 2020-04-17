@@ -361,6 +361,6 @@ namespace NWN.NWNX {
 			Internal.NativeFunctions.nwnxPushObject(nwObject);
 			Internal.NativeFunctions.nwnxCallFunction();
 			return Internal.NativeFunctions.nwnxPopInt() != 0;
-		}
+        }
 	}
 }
