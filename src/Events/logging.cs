@@ -7,6 +7,7 @@ namespace NWN.Events {
 			NWScript.SendMessageToPC(NWScript.GetFirstPC(), $"<cCCC>{msg}</c>");
 		}
 
+        // put this back in to test multicast delegates
 		public static void HookAllMessages() {
 			AmmoEvent.BeforeReloadAmmo += e => Log($"Reloading {e.BaseItemID}");
 			AmmoEvent.AfterReloadAmmo += e => Log($"Reloaded {e.GetResult()} ({e.BaseItemID})");

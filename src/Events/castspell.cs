@@ -1,3 +1,5 @@
+using NWN.Enums;
+
 namespace NWN.Events {
 	public class CastSpellEvent : NWNXEvent {
 		public delegate void EventDelegate(CastSpellEvent e);
@@ -13,14 +15,14 @@ namespace NWN.Events {
 		}
 
 		public NWCreature Caster => Internal.OBJECT_SELF.AsCreature();
-		public int SpellID => GetEventInt("SPELL_ID");
+		public Spell SpellID => (Spell) GetEventInt("SPELL_ID");
 		public Vector TargetPosition => GetEventVector("TARGET_POSITION");
 		public NWObject TargetObject => GetEventObject("TARGET_OBJECT").AsObject();
 		public NWItem Item => GetEventObject("ITEM_OBJECT_ID").AsItem();
 		public int MultiClass => GetEventInt("MULTI_CLASS"); // ?
 		public bool SpellCountered => GetEventInt("SPELL_COUNTERED") == 1;
 		public bool CounteringSpell => GetEventInt("COUNTERING_SPELL") == 1;
-		public int ProjectilePathType => GetEventInt("PROJECTILE_PATH_TYPE");
+		public ProjectilePathType ProjectilePathType => (ProjectilePathType) GetEventInt("PROJECTILE_PATH_TYPE");
 		public bool IsInstantSpell => GetEventInt("IS_INSTANT_SPELL") == 1;
 
 		[NWNEventHandler(BEFORE_CAST_SPELL)]

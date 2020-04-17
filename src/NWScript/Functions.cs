@@ -1,7 +1,9 @@
 using NWN.Enums;
-using NWN.Enums.Creature;
+using static NWN.Enums.Creature.Type;
 
 namespace NWN {
+	using System;
+
 	public partial class NWScript {
 		public static uint OBJECT_SELF => Internal.OBJECT_SELF;
 
@@ -250,7 +252,7 @@ namespace NWN {
 		///   further specify the type of creature that we are looking for.
 		///   * Return value on error: OBJECT_INVALID
 		/// </summary>
-		public static uint GetNearestCreature(Type nFirstCriteriaType, int nFirstCriteriaValue,
+		public static uint GetNearestCreature(int nFirstCriteriaType, int nFirstCriteriaValue,
 			uint oTarget = OBJECT_INVALID, int nNth = 1, int nSecondCriteriaType = -1, int nSecondCriteriaValue = -1,
 			int nThirdCriteriaType = -1, int nThirdCriteriaValue = -1) {
 			Internal.NativeFunctions.StackPushInteger(nThirdCriteriaValue);
@@ -260,7 +262,7 @@ namespace NWN {
 			Internal.NativeFunctions.StackPushInteger(nNth);
 			Internal.NativeFunctions.StackPushObject(oTarget);
 			Internal.NativeFunctions.StackPushInteger(nFirstCriteriaValue);
-			Internal.NativeFunctions.StackPushInteger((int) nFirstCriteriaType);
+			Internal.NativeFunctions.StackPushInteger(nFirstCriteriaType);
 			Internal.NativeFunctions.CallBuiltIn(38);
 			return Internal.NativeFunctions.StackPopObject();
 		}
@@ -3064,10 +3066,15 @@ namespace NWN {
 		///   Encounters, Areas.
 		///   Will return "" (empty string) when the given object cannot carry a UUID.
 		/// </summary>
-		public static string GetObjectUUID(uint oObject) {
-			Internal.NativeFunctions.StackPushObject(oObject);
+		public static string GetObjectUUID(uint gameObject) {
+			Internal.NativeFunctions.StackPushObject(gameObject);
 			Internal.NativeFunctions.CallBuiltIn(896);
 			return Internal.NativeFunctions.StackPopStringUTF8();
+		}
+
+        // seemed useful to include
+		public static Guid GetObjectGUID(uint gameObject) {
+			return Guid.Parse(GetObjectUUID(gameObject));
 		}
 
 		/// <summary>
@@ -3099,7 +3106,7 @@ namespace NWN {
 		// If oPC is OBJECT_INVALID, it will apply the override to all active players
 		// Setting sNewName to "" will clear the override and revert to original.
 		// void SetTextureOverride();
-		public static void SetTextureOverride(string OldName, string NewName = "", uint PC = NWObject.OBJECT_INVALID) {
+		public static void SetTextureOverride(string OldName, string NewName = "", uint PC = NWObjectBase.OBJECT_INVALID) {
 			Internal.NativeFunctions.StackPushObject(PC);
 			Internal.NativeFunctions.StackPushStringUTF8(NewName);
 			Internal.NativeFunctions.StackPushStringUTF8(OldName);
@@ -3120,13 +3127,13 @@ namespace NWN {
 		//        Only positive values are allowed.
 		//  sFont - If specified, use this custom font instead of default console font.
 		public static void PostString(uint PC, string Msg, int X = 0, int Y = 0, ScreenAnchor anchor = ScreenAnchor.TopLeft,
-			float life = 10.0f, int RGBA = 2147418367, int RGBA2 = 2147418367, int ID = 0, string font="") {
+			float life = 10.0f, int RGBA = 2147418367, int RGBA2 = 2147418367, int ID = 0, string font = "") {
 			Internal.NativeFunctions.StackPushStringUTF8(font);
 			Internal.NativeFunctions.StackPushInteger(ID);
 			Internal.NativeFunctions.StackPushInteger(RGBA2);
 			Internal.NativeFunctions.StackPushInteger(RGBA);
 			Internal.NativeFunctions.StackPushFloat(life);
-			Internal.NativeFunctions.StackPushInteger((int)anchor);
+			Internal.NativeFunctions.StackPushInteger((int) anchor);
 			Internal.NativeFunctions.StackPushInteger(Y);
 			Internal.NativeFunctions.StackPushInteger(X);
 			Internal.NativeFunctions.StackPushStringUTF8(Msg);
@@ -3138,10 +3145,10 @@ namespace NWN {
 		// Unless custom content is used, only Wizards have spell schools
 		// Returns -1 on error
 		public static SpellSchool GetSpecialization(uint creature, ClassType playerClass) {
-			Internal.NativeFunctions.StackPushInteger((int)playerClass);
+			Internal.NativeFunctions.StackPushInteger((int) playerClass);
 			Internal.NativeFunctions.StackPushObject(creature);
 			Internal.NativeFunctions.CallBuiltIn(902);
-			return (SpellSchool)Internal.NativeFunctions.StackPopInteger();
+			return (SpellSchool) Internal.NativeFunctions.StackPopInteger();
 		}
 
 		// Returns oCreature's domain in nClass (DOMAIN_* constants)
@@ -3149,10 +3156,10 @@ namespace NWN {
 		// Unless custom content is used, only Clerics have domains
 		// Returns -1 on error
 		public static ClericDomain GetDomain(uint creature, int DomainIndex = 1, ClassType playerClass = ClassType.Cleric) {
-			Internal.NativeFunctions.StackPushInteger((int)playerClass);
+			Internal.NativeFunctions.StackPushInteger((int) playerClass);
 			Internal.NativeFunctions.StackPushObject(creature);
 			Internal.NativeFunctions.CallBuiltIn(903);
-			return (ClericDomain)Internal.NativeFunctions.StackPopInteger();
+			return (ClericDomain) Internal.NativeFunctions.StackPopInteger();
 		}
 	}
 }

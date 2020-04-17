@@ -17,7 +17,7 @@ namespace NWN.Events {
 		public string PlayerName => GetEventString("PLAYER_NAME");
 		public string PlayerCDKey => GetEventString("CDKEY");
 		public string PlayerIP => GetEventString("IP_ADDRESS");
-		public bool IsDM => GetEventInt("IS_DM") == 1;
+		public bool IsDM => GetEventInt("IS_DM") != 0;
 
 		[NWNEventHandler(BEFORE_CONNECT)]
 		[NWNEventHandler(AFTER_CONNECT)]

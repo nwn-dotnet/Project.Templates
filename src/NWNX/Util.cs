@@ -99,5 +99,18 @@ namespace NWN.NWNX {
 			Internal.NativeFunctions.nwnxCallFunction();
 			return Internal.NativeFunctions.nwnxPopInt();
 		}
+
+		public static bool PluginExists(string plugin) {
+			Internal.NativeFunctions.nwnxSetFunction(PLUGIN_NAME, "PluginExists");
+			Internal.NativeFunctions.nwnxPushString(plugin);
+			Internal.NativeFunctions.nwnxCallFunction();
+			return Internal.NativeFunctions.nwnxPopInt() != 0;
+		}
+
+		public static string GetUserDirectory() {
+			Internal.NativeFunctions.nwnxSetFunction(PLUGIN_NAME, "GetUserDirectory");
+			Internal.NativeFunctions.nwnxCallFunction();
+			return Internal.NativeFunctions.nwnxPopString();
+		}
 	}
 }

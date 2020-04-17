@@ -1,6 +1,5 @@
 using System;
 using NWN.Enums;
-using NWN.NWNX;
 
 namespace NWN.Events {
 	public delegate void ModuleEventDelegate();
@@ -56,6 +55,8 @@ namespace NWN.Events {
 	}
 
 	public class BuiltinEvents {
+		public static ModuleEventDelegate OnModuleShutdown = delegate { };
+		public static ModuleEventDelegate OnModulePreload = delegate { };
 		public static ModuleEventDelegate OnModuleLoad = delegate { };
 		public static ModuleEventDelegate OnModuleReload = delegate { };
 		public static ModuleEventDelegate OnModuleStart = delegate { };
@@ -85,18 +86,33 @@ namespace NWN.Events {
 	public class EventHandlers {
 		private static bool _isConfigured;
 
+		[NWNEventHandler("mod_shutdown")]
+		// just an example
+		public static void OnModuleShutdown(string script) {
+			var players = NWModule.Module.Players;
+			if (players == null) return;
+			foreach (var player in players) {
+				player.Boot("Server shutting down!");
+				Console.WriteLine($"kicked {player.PlayerName}");
+			}
+			Console.WriteLine("SHUTDOWN");
+		}
+
+		[NWNEventHandler("mod_preload")]
+		public static void OnModulePreload(string script) {
+			
+		}
+
 		[NWNEventHandler("on_module_load")]
 		public static void OnModuleLoad(string script) {
 			if (_isConfigured) {
 				BuiltinEvents.OnModuleReload();
 				return;
 			}
-
-			// ready to go
-			Console.WriteLine("Configuring events.");
-			NWNEventHandler.SubscribeToNwnxEvents();
-			EventLogger.HookAllMessages();
-
+			
+			// an example of calling your own code
+			MyCode.MyCode.SubscribeToEvents();
+			
 			var module = NWModule.Module;
 			module.Scripts![EventScript.Module_OnClientEnter] = "mod-client-enter";
 			module.Scripts![EventScript.Module_OnClientExit] = "mod-client-exit";
@@ -129,7 +145,6 @@ namespace NWN.Events {
 		[NWNEventHandler("mod-heartbeat")]
 		public static void OnModuleHeartBeat(string script) {
 			var module = NWScript.OBJECT_SELF;
-
 			BuiltinEvents.OnModuleHeartbeat();
 		}
 
@@ -140,8 +155,6 @@ namespace NWN.Events {
 
 		[NWNEventHandler("mod-client-enter")]
 		public static void OnClientEnter(string script) {
-			var pc = NWScript.GetEnteringObject().AsPlayer();
-
 			BuiltinEvents.OnClientEnter();
 		}
 
@@ -236,12 +249,12 @@ namespace NWN.Events {
 
 		[NWNEventHandler("area-heartbeat")]
 		public static void OnAreaHeartbeat(string script) {
-			//BuiltinEvent does not exist
+			//BuiltinEvents.OnAreaHeartbeat(Internal.OBJECT_SELF.AsArea());
 		}
 
 		[NWNEventHandler("area-userDefined")]
 		public static void OnAreaUserDefined(string script) {
-			//BuiltinEvent does not exist
+			//BuiltinEvents.OnAreaUserDefined(Internal.OBJECT_SELF.AsArea());
 		}
 	}
 }

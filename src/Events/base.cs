@@ -15,7 +15,7 @@ namespace NWN.Events {
 
 		protected static int GetEventInt(string eventDataTag) => int.Parse(NWNX.Events.GetEventData(eventDataTag));
 
-		protected static float GetEventFloat(string eventDataTag) =>float.Parse(NWNX.Events.GetEventData(eventDataTag));
+		protected static float GetEventFloat(string eventDataTag) => float.Parse(NWNX.Events.GetEventData(eventDataTag));
 
 		protected static Vector GetEventVector(string eventDataPrefix) {
 			var x = float.Parse(NWNX.Events.GetEventData(eventDataPrefix + "_X"));

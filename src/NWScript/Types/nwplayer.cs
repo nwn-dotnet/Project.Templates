@@ -1,11 +1,11 @@
+using System;
 using System.Collections.Generic;
+using NWN.NWNX;
+using NWN.NWNX.Enum;
 
 namespace NWN {
 	public class NWPlayer : NWCreature {
-		// public virtual string BicFile => NWNX.Player.GetBicFileName(this);
-
-		public NWPlayer(uint oid) : base(oid) {
-		}
+		public NWPlayer(uint oid) : base(oid) { }
 
 		public virtual IEnumerable<NWPlayer> PartyMembers {
 			get {
@@ -27,6 +27,10 @@ namespace NWN {
 			else
 				NWScript.SetPCDislike(this, other);
 		}
+
+		public virtual string BicFile => Player.GetBicFileName(this);
+		public virtual Player.PlatformID Platform => Player.GetPlatformId(this);
+		public virtual DialogLanguages Language => Player.GetLanguage(this);
 
 		public virtual void SendMessage(string text) {
 			NWScript.SendMessageToPC(this, text);

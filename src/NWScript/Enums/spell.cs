@@ -2,7 +2,7 @@ namespace NWN {
 	public enum Spell : short {
 		Invalid = -2,
 		AllSpells = -1,
-		AcidFog,  
+		AcidFog,
 		Aid,
 		AnimateDead,
 		Barkskin,

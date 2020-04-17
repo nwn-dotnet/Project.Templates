@@ -102,6 +102,8 @@
 		2da-engine-cache-size = 11
 		2da-user-cache-size = 10
 		game-object-cache-size = 16
+		threaded-timers-resolution = 100
+		use-threaded-timers = true
 		[server.tweaks.power-saving]
 			clients-required-to-disable = 1
 		[server.tweaks.resman]
@@ -595,6 +597,13 @@
 				idx = 1
 				label = "Max Memory Usage"
 				section = "Game Options"
+		["~~schema".binds."server.tweaks.threaded-timers-resolution"]
+			default = 100
+			["~~schema".binds."server.tweaks.threaded-timers-resolution".constraints]
+				max = 1000
+				min = 1
+		["~~schema".binds."server.tweaks.use-threaded-timers"]
+			default = true
 		["~~schema".binds."server.vault.by-player-name"]
 			default = false
 			["~~schema".binds."server.vault.by-player-name".ini-mapping]

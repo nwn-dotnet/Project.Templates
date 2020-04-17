@@ -7,6 +7,8 @@ namespace NWN {
 	public class NWObject : NWObjectBase {
 		public NWObject(uint oid) : base(oid) {}
 
+		public virtual string uuid => NWScript.GetObjectUUID(this);
+
 		public virtual bool IsValidType => true;
 
 		public virtual float Facing {
@@ -93,9 +95,13 @@ namespace NWN {
 			return Object.GetHasVisualEffect(this, nVFX) == 1;
 		}
 
-		public void Destroy(float delay = 0.0f) => NWScript.DestroyObject(this, delay);
+		public void Destroy(float delay = 0.0f) {
+			NWScript.DestroyObject(this, delay);
+		}
 
-		public void AddToArea(NWArea area, Vector pos) => Object.AddToArea(this, area, pos);
+		public void AddToArea(NWArea area, Vector pos) {
+			Object.AddToArea(this, area, pos);
+		}
 
 		public void ClearInventory() {
 			foreach (var item in InventoryItems) {

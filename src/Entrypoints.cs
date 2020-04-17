@@ -1,107 +1,92 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using NWN.Events;
 
 namespace NWN {
 	[AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
 	public class NWNEventHandler : Attribute {
-		public delegate void ScriptDelegate(string script);
+		private delegate void VoidScriptDelegate(string script);
+		private delegate bool BoolScriptDelegate(string script);
+		private readonly string _name;
+		private static IReadOnlyDictionary<string, List<Delegate>>? _scripts;
 
-		public const int MaxCharsInScriptName = 16;
-		public const int ScriptHandled = 0;
-		public const int ScriptNotHandled = -1;
+		// constructor
+		public NWNEventHandler(string script) => _name = script;
 
-		public static Dictionary<string, string> EventNamesShortLong = new Dictionary<string, string>();
-		public static Dictionary<string, ScriptDelegate>? Scripts;
-		private static int _numFakeNames;
-
-		public string Script;
-
-		public NWNEventHandler(string script) {
-			Script = script;
-		}
-
+		// main loop
 		public static void OnMainLoop(ulong frame) {
 			// Console.WriteLine($"MainLoop frame {frame}");
 		}
 
+		// on run script
 		public static int OnRunScript(string script, uint oidSelf) {
-			if (EventNamesShortLong.ContainsKey(script)) {
-				var longName = EventNamesShortLong[script];
-				Console.WriteLine($"Handling '{script}' ('{longName}') on oid {oidSelf}");
-				Scripts![longName](longName);
-				return ScriptHandled;
+			var callHash = script.GetHashCode().ToString();
+			//Console.WriteLine($"{script} - {callHash} on: {oidSelf.ToString()}");
+			if (!_scripts!.ContainsKey(callHash)) return -1;
+			// iterate through all delegates stored
+			var conditionalReturn = new List<bool>();
+
+			// iterate delegates attached to this script call
+			var index = 0;
+			foreach (var d in _scripts[callHash]) {
+				if (d.Method.ReturnType == typeof(void)) {
+					var del = (VoidScriptDelegate) d;
+					del.Invoke(script);
+					Console.WriteLine($"Script '{script}' | oid: ('{oidSelf.ToString()}') | internal: {callHash}");
+				}
+				else {
+					var del = (BoolScriptDelegate) d;
+					conditionalReturn[index] = del.Invoke(script);
+					Console.WriteLine($"Conditional script '{script}' | oid  '{oidSelf.ToString()}') | internal: {callHash}");
+					index++;
+				}
 			}
 
-			Console.WriteLine($"Passing '{script}' on oid {oidSelf} to nwscript");
-			return ScriptNotHandled;
+			return !conditionalReturn.Contains(false) ? 0 : 1;
 		}
 
 		public static void OnStart() {
-			Console.WriteLine("OnStart() called");
-			Scripts = GetHandlersFromAssembly();
+			Console.WriteLine("Starting script registration...");
+			_scripts = LoadHandlersFromAssembly();
+			Console.WriteLine($"{_scripts.Count.ToString()} scripts registered");
 		}
 
-		public static void SubscribeToNwnxEvents() {
-			if (EventNamesShortLong == null) return;
-			var count = 0;
-			foreach (var (key, value) in EventNamesShortLong) {
-				if (!key.StartsWith("nx-")) continue;
-				count++;
-				NWNX.Events.SubscribeEvent(value, key);
-			}
-			Console.WriteLine($"Registered {count} NWNXEE Events");
-		}
+		private static IReadOnlyDictionary<string, List<Delegate>> LoadHandlersFromAssembly() {
+			var result = new Dictionary<string, List<Delegate>>();
 
-		public static string GetShortName(string script) {
-			//Console.WriteLine($"GetShortName({script})");
-			if (EventNamesShortLong.ContainsValue(script))
-				return EventNamesShortLong.First(p => p.Value == script).Key;
-			if (script.Length <= MaxCharsInScriptName)
-				return script;
-			const string prefix = "NWNX_";
-			if (!script.StartsWith(prefix))
-				return script.Substring(0, MaxCharsInScriptName);
-
-			var suffix = script.Substring(script.LastIndexOf('_') + 1);
-			var name = script.Substring(prefix.Length, script.Length - suffix.Length - prefix.Length - 1);
-			if (name.Length > MaxCharsInScriptName - 5)
-				name = name.Substring(0, MaxCharsInScriptName - 10) + $"-{_numFakeNames++}";
-			return $"nx-{name.Replace('_', '-')}-{suffix.Substring(0, 1)}".ToLower();
-		}
-
-		public static Dictionary<string, ScriptDelegate> GetHandlersFromAssembly() {
-			var result = new Dictionary<string, ScriptDelegate>();
 			var handlers = Assembly.GetExecutingAssembly()
 				.GetTypes()
 				.SelectMany(t => t.GetMethods())
 				.Where(m => m.GetCustomAttributes(typeof(NWNEventHandler), false).Length > 0)
-				.ToArray();
+				.ToList();
 
 			foreach (var mi in handlers) {
-				var del = (ScriptDelegate) mi.CreateDelegate(typeof(ScriptDelegate));
 				foreach (var attr in mi.GetCustomAttributes(typeof(NWNEventHandler), false)) {
-					var script = ((NWNEventHandler) attr).Script;
-					var shortName = GetShortName(script);
-					Console.WriteLine("Registered " + script + ":" + shortName);
-					if (shortName.Length > MaxCharsInScriptName || shortName.Length == 0) {
-						Console.WriteLine($"Bad short name for {script}: {shortName}");
-						throw new ApplicationException();
-					}
+					// name
+					var name = ((NWNEventHandler) attr)._name;
+					var hashName = name.GetHashCode().ToString();
 
-					if (EventNamesShortLong.ContainsKey(shortName)) {
-						Console.WriteLine($"Attempting to register script twice: {script} ({shortName})");
-						throw new ApplicationException();
-					}
+					// is return void
+					var isReturnVoid = mi.ReturnType == typeof(void);
 
-					EventNamesShortLong[shortName] = script;
-					result[script] = del;
+					// create delegates as proper types
+					Delegate d;
+					if (isReturnVoid) { d = (VoidScriptDelegate) mi.CreateDelegate(typeof(VoidScriptDelegate)); }
+					else { d = (BoolScriptDelegate) mi.CreateDelegate(typeof(BoolScriptDelegate)); }
+
+					// current list of delegates on function
+					var sharedScripts = !result.ContainsKey(name) ? new List<Delegate>() : result[name];
+
+					// add to list
+					sharedScripts.Add(d);
+					// and to the dictionary
+					result[hashName] = sharedScripts;
 				}
 			}
 
-			return result;
+			return new ReadOnlyDictionary<string, List<Delegate>>(result);
 		}
 	}
 }

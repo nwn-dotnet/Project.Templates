@@ -720,5 +720,14 @@ namespace NWN.NWNX {
 			Internal.NativeFunctions.nwnxPushObject(creature);
 			Internal.NativeFunctions.nwnxCallFunction();
 		}
+
+		// Returns the creature level where the specified feat was learned.
+		public static int GetFeatGrantLevel(uint creature, Feat feat) {
+			Internal.NativeFunctions.nwnxSetFunction(PLUGIN_NAME, "GetFeatGrantLevel");
+			Internal.NativeFunctions.nwnxPushInt((int) feat);
+			Internal.NativeFunctions.nwnxPushObject(creature);
+			Internal.NativeFunctions.nwnxCallFunction();
+			return Internal.NativeFunctions.nwnxPopInt();
+		}
 	}
 }

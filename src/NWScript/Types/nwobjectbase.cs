@@ -34,13 +34,13 @@ namespace NWN {
 		public virtual bool IsValid => NWScript.GetIsObjectValid(this);
 
 
-		public static bool operator == (NWObjectBase? lhs, NWObjectBase? rhs) {
+		public static bool operator ==(NWObjectBase? lhs, NWObjectBase? rhs) {
 			var lhsNull = ReferenceEquals(lhs, null);
 			var rhsNull = ReferenceEquals(rhs, null);
 			return lhsNull && rhsNull;
 		}
 
-		public static bool operator != (NWObjectBase lhs, NWObjectBase rhs) => !(lhs == rhs);
+		public static bool operator !=(NWObjectBase lhs, NWObjectBase rhs) => !(lhs == rhs);
 
 		public override bool Equals(object? other) {
 			if (other == null) throw new ArgumentNullException(nameof(other));
@@ -58,7 +58,9 @@ namespace NWN {
 		public class EventScripts {
 			private readonly NWObjectBase owner;
 
-			public EventScripts(NWObjectBase owner) => this.owner = owner;
+			public EventScripts(NWObjectBase owner) {
+				this.owner = owner;
+			}
 
 			public string this[EventScript key] {
 				get => NWScript.GetEventScript(owner, (int) key);

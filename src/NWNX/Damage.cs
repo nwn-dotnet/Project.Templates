@@ -116,8 +116,8 @@ namespace NWN.NWNX {
 
 		// Deal damage to target - permits multiple damage types and checks enhancement bonus for overcoming DR
 		public static void DealDamage(DamageEventData data, NWObject oTarget, NWObject oSource, bool iRanged = false) {
-			Internal.NativeFunctions.nwnxSetFunction(PLUGIN_NAME, "SetAttackEventData"); 
-			Internal.NativeFunctions.nwnxSetFunction(PLUGIN_NAME, "DealDamage"); 
+			Internal.NativeFunctions.nwnxSetFunction(PLUGIN_NAME, "SetAttackEventData");
+			Internal.NativeFunctions.nwnxSetFunction(PLUGIN_NAME, "DealDamage");
 			Internal.NativeFunctions.nwnxPushInt(iRanged ? 1 : 0);
 			Internal.NativeFunctions.nwnxPushInt(data.Base);
 			Internal.NativeFunctions.nwnxPushInt(data.Sonic);

@@ -722,7 +722,9 @@ namespace NWN {
 		///   * Return value if oTarget is not a valid object: -1
 		/// </summary>
 		public static ObjectType GetObjectType(uint oTarget) {
-            if (NWScript.GetIsPC(oTarget)) return ObjectType.Player;
+			// so players can be a object type
+			if (GetIsPC(oTarget)) return ObjectType.Player;
+			// else
 			Internal.NativeFunctions.StackPushObject(oTarget);
 			Internal.NativeFunctions.CallBuiltIn(106);
 			return (ObjectType) Internal.NativeFunctions.StackPopInteger();
