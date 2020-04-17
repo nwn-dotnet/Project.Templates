@@ -1,8 +1,8 @@
 namespace NWN.Enums {
-	public enum RestEventTypeRest {
-		Invalid,
-		Started,
-		Finished,
-		Cancelled
-	}
+  public enum RestEventTypeRest {
+    Invalid,
+    Started,
+    Finished,
+    Cancelled
+  }
 }

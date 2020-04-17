@@ -1,7 +1,7 @@
 namespace NWN.Enums {
-	public enum TalentType {
-		Spell,
-		Feat,
-		Skill
-	}
+  public enum TalentType {
+    Spell,
+    Feat,
+    Skill
+  }
 }

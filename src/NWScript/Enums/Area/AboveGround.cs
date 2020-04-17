@@ -1,6 +1,6 @@
 ﻿namespace NWN.Enums.Area {
-	public enum AboveGround {
-		UnderGround,
-		AboveGround
-	}
+  public enum AboveGround {
+    UnderGround,
+    AboveGround
+  }
 }

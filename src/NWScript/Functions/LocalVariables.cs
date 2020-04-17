@@ -1,4 +1,4 @@
 namespace NWN {
-	public partial class NWScript {
-	}
+  public partial class NWScript {
+  }
 }
