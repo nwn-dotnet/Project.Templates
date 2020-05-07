@@ -5,15 +5,7 @@ services:
     hostname: influxdb
     image: influxdb:1.7
     restart: unless-stopped
-    environment:
-    - INFLUXDB_DB=metrics
-    - INFLUXDB_ADMIN_USER=admin
-    - INFLUXDB_ADMIN_PASSWORD=admin
-    - INFLUXDB_USER=docker
-    - INFLUXDB_USER_PASSWORD=docker
-    - INFLUXDB_UDP_ENABLED=true
-    - INFLUXDB_UDP_BIND_ADDRESS=:8089
-    - INFLUXDB_UDP_DATABASE=metrics
+    env_file: ${PWD-.}/config/influxdb.env
     volumes:
     - ${PWD-.}/Data/influxdb:/var/lib/influxdb
     networks:
@@ -39,11 +31,12 @@ services:
     hostname: nwserver
     build:
       context: ./
+    restart: unless-stopped
+    env_file: ${PWD-.}/config/nwserver.env
     volumes:
     - ${PWD-.}/server/:/nwn/home
     - ${PWD-.}/logs:/nwn/run/logs.0
     - ${PWD-.}/logs:/nwn/data/bin/linux-x86/logs.0
-    restart: unless-stopped
     ports:
     - '5121:5121/udp'
     networks:
