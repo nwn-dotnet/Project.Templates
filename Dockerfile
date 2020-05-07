@@ -2,7 +2,6 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1.102 AS build
 ADD ./src /Build
 WORKDIR /Build
-RUN dotnet restore
 RUN dotnet publish -c Release
 
 # Build the final NWN server image (Version: 8193.12)
