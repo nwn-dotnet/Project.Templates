@@ -1,8 +1,8 @@
 ﻿namespace NWN.Enums {
-  public enum Faction {
-    Hostile,
-    Commoner,
-    Merchant,
-    Defender
-  }
+    public enum Faction {
+        Hostile,
+        Commoner,
+        Merchant,
+        Defender
+    }
 }

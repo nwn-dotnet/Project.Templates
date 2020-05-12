@@ -1,8 +1,8 @@
 ﻿namespace NWN.Enums.Item.Property {
-  public enum RestType {
-    Invalid,
-    Started,
-    Finished,
-    Cancelled
-  }
+    public enum RestType {
+        Invalid,
+        Started,
+        Finished,
+        Cancelled
+    }
 }

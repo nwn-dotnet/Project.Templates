@@ -1,7 +1,7 @@
 ﻿namespace NWN.Enums.Area {
-  public enum DayNightCycle {
-    CycleDayNight,
-    AlwaysBright,
-    AlwaysDark
-  }
+    public enum DayNightCycle {
+        CycleDayNight,
+        AlwaysBright,
+        AlwaysDark
+    }
 }
