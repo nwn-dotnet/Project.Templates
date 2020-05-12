@@ -140,19 +140,19 @@ namespace NWN.MyCode {
         //Log($"Removed {e.Item.Name} to {e.Container.Name}");
       };
 
-      EquipEvent.BeforeEquipItem += e => {
+      ItemEquipEvent.BeforeEquipItem += e => {
         //Log($"{e.Owner.Name} equipping {e.Item.Name} to {e.Slot}");
       };
 
-      EquipEvent.AfterEquipItem += e => {
+      ItemEquipEvent.AfterEquipItem += e => {
         //Log($"{e.Owner.Name} equipped {e.Item.Name} to {e.Slot}");
       };
 
-      EquipEvent.BeforeUnequipItem += e => {
+      ItemEquipEvent.BeforeUnequipItem += e => {
         //Log($"{e.Owner.Name} unequipping {e.Item.Name}");
       };
 
-      EquipEvent.AfterUnequipItem += e => {
+      ItemEquipEvent.AfterUnequipItem += e => {
         //Log($"{e.Owner.Name} unequipped {e.Item.Name}");
       };
 
@@ -307,11 +307,11 @@ namespace NWN.MyCode {
         //Log($"Reloading {e.BaseItemID}");
       };
 
-      UUIDConflictEvent.CollisionBefore += e => {
+      UUIDCollisionEvent.BeforeUUIDCollision += e => {
         //Log($"Reloading {e.BaseItemID}");
       };
 
-      UUIDConflictEvent.CollisionAfter += e => {
+      UUIDCollisionEvent.AfterUUIDCollision += e => {
         //Log($"Reloading {e.BaseItemID}");
       };
 

@@ -57,11 +57,11 @@ namespace NWN.Events {
       InventoryEvent.BeforeRemoveItem += e => Log($"Removing {e.Item.Name} to {e.Container.Name}");
       InventoryEvent.AfterRemoveItem += e => Log($"Removed {e.Item.Name} to {e.Container.Name}");
 
-      EquipEvent.BeforeEquipItem += e => Log($"{e.Owner.Name} equipping {e.Item.Name} to {e.Slot}");
-      EquipEvent.AfterEquipItem += e => Log($"{e.Owner.Name} equipped {e.Item.Name} to {e.Slot}");
+      ItemEquipEvent.BeforeEquipItem += e => Log($"{e.Owner.Name} equipping {e.Item.Name} to {e.Slot}");
+      ItemEquipEvent.AfterEquipItem += e => Log($"{e.Owner.Name} equipped {e.Item.Name} to {e.Slot}");
 
-      EquipEvent.BeforeUnequipItem += e => Log($"{e.Owner.Name} unequipping {e.Item.Name}");
-      EquipEvent.AfterUnequipItem += e => Log($"{e.Owner.Name} unequipped {e.Item.Name}");
+      ItemEquipEvent.BeforeUnequipItem += e => Log($"{e.Owner.Name} unequipping {e.Item.Name}");
+      ItemEquipEvent.AfterUnequipItem += e => Log($"{e.Owner.Name} unequipped {e.Item.Name}");
 
       ItemSplitEvent.BeforeItemSplit += e => Log($"{e.Player.Name} splitting {e.Amount} {e.Item.Name}");
       ItemSplitEvent.AfterItemSplit += e => Log($"{e.Player.Name} split {e.Amount} {e.Item.Name}");
