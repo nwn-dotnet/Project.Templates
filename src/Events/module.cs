@@ -1,5 +1,5 @@
-using System;
 using NWN.Enums;
+using System;
 
 namespace NWN.Events {
     public delegate void ModuleEventDelegate();

@@ -19,7 +19,7 @@
         public NWModule Module => Internal.OBJECT_SELF.AsModule();
         public string Alias => GetEventString("ALIAS");
         public string ResRef => GetEventString("RESREF");
-        public NWNX.Enum.ResRefType ResRefType => (NWNX.Enum.ResRefType) GetEventInt("TYPE");
+        public NWNX.Enum.ResRefType ResRefType => (NWNX.Enum.ResRefType)GetEventInt("TYPE");
 
         [NWNEventHandler(RESOURCE_ADDED)]
         [NWNEventHandler(RESOURCE_REMOVED)]

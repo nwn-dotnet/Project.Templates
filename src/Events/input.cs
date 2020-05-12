@@ -80,7 +80,7 @@
         public int SpellID => GetEventInt("SPELL_ID");
         public int Multiclass => GetEventInt("MULTICLASS");
         public int DomainLevel => GetEventInt("DOMAIN_LEVEL");
-        public Enums.MetaMagic MetaType => (Enums.MetaMagic) GetEventInt("META_TYPE");
+        public Enums.MetaMagic MetaType => (Enums.MetaMagic)GetEventInt("META_TYPE");
         public bool IsInstant => GetEventInt("INSTANT") == 1;
         public int ProjectilePath => GetEventInt("PROJECTILE_PATH");
         public bool IsSpontaneous => GetEventInt("SPONTANEOUS") == 1;

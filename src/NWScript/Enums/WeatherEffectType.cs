@@ -1,7 +1,7 @@
 ﻿namespace NWN.Enums {
-  public enum WeatherEffectType {
-    Rain,
-    Snow,
-    Lightning
-  }
+    public enum WeatherEffectType {
+        Rain,
+        Snow,
+        Lightning
+    }
 }

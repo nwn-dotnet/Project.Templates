@@ -1,5 +1,4 @@
-﻿using System;
-namespace NWN.Events {
+﻿namespace NWN.Events {
     public class MapPinEvent : NWNXEvent {
         public delegate void EventDelegate(MapPinEvent e);
 

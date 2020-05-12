@@ -92,7 +92,7 @@ namespace NWN.Events {
         public NWPlayer DM => Internal.OBJECT_SELF.AsPlayer();
         public NWArea area = GetEventObject("AREA").AsArea();
         public NWObject Target => GetEventObject("OBJECT").AsObject();
-        public Enums.ObjectTypeEngine ObjectType => (Enums.ObjectTypeEngine) GetEventInt("OBJECT_TYPE");
+        public Enums.ObjectTypeEngine ObjectType => (Enums.ObjectTypeEngine)GetEventInt("OBJECT_TYPE");
         public Vector Pos => GetEventVector("POS");
 
 
@@ -329,12 +329,13 @@ namespace NWN.Events {
         public NWPlayer DM => Internal.OBJECT_SELF.AsPlayer();
         public NWArea TargetArea => GetEventObject("TARGET_AREA").AsArea();
         public Vector Pos => GetEventVector("POS");
-        int NumTargets => GetEventInt("NUM_TARGETS");
+
+        private int NumTargets => GetEventInt("NUM_TARGETS");
         public List<NWObject> GetTargets() {
             List<NWObject> retVal = new List<NWObject>();
             for (int i = 1; i <= NumTargets; ++i) retVal.Add(GetEventObject("TARGET_" + i.ToString()).AsObject());
             return retVal;
-        }        
+        }
 
         [NWNEventHandler(DM_JUMP_TO_POINT_BEFORE)]
         [NWNEventHandler(DM_JUMP_TO_POINT_AFTER)]
@@ -382,7 +383,7 @@ namespace NWN.Events {
         public override bool Skippable => true;
 
         public NWPlayer DM => Internal.OBJECT_SELF.AsPlayer();
-        public int DifficultySetting => GetEventInt("DIFFICULTY_SETTING"); 
+        public int DifficultySetting => GetEventInt("DIFFICULTY_SETTING");
 
 
         [NWNEventHandler(DM_CHANGE_DIFFICULTY_BEFORE)]

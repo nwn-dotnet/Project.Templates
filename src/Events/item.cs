@@ -79,71 +79,71 @@
         }
     }
     public class ValidateUseItemEvent : NWNXEvent {
-            public delegate void EventDelegate(ValidateUseItemEvent e);
+        public delegate void EventDelegate(ValidateUseItemEvent e);
 
-            public const string VALIDATE_USE_ITEM_BEFORE = "NWNX_ON_VALIDATE_USE_ITEM_BEFORE";
-            public const string VALIDATE_USE_ITEM_AFTER = "NWNX_ON_VALIDATE_USE_ITEM_AFTER";
+        public const string VALIDATE_USE_ITEM_BEFORE = "NWNX_ON_VALIDATE_USE_ITEM_BEFORE";
+        public const string VALIDATE_USE_ITEM_AFTER = "NWNX_ON_VALIDATE_USE_ITEM_AFTER";
 
-            public static EventDelegate BeforeValidateUseItem = delegate { };
-            public static EventDelegate AfterValidateUseItem = delegate { };
+        public static EventDelegate BeforeValidateUseItem = delegate { };
+        public static EventDelegate AfterValidateUseItem = delegate { };
 
-            public ValidateUseItemEvent(string script) {
-                EventType = script;
-            }
+        public ValidateUseItemEvent(string script) {
+            EventType = script;
+        }
 
-            public override bool Skippable => true;
+        public override bool Skippable => true;
 
-            public NWCreature User => Internal.OBJECT_SELF.AsCreature();
-            public NWItem Item => GetEventObject("ITEM_OBJECT_ID").AsItem();            
+        public NWCreature User => Internal.OBJECT_SELF.AsCreature();
+        public NWItem Item => GetEventObject("ITEM_OBJECT_ID").AsItem();
 
-            [NWNEventHandler(VALIDATE_USE_ITEM_BEFORE)]
-            [NWNEventHandler(VALIDATE_USE_ITEM_AFTER)]
-            public static void EventHandler(string script) {
-                var e = new ValidateUseItemEvent(script);
-                switch (script) {
-                    case VALIDATE_USE_ITEM_BEFORE:
-                        BeforeValidateUseItem(e);
-                        break;
-                    case VALIDATE_USE_ITEM_AFTER:
-                        AfterValidateUseItem(e);
-                        break;
-                }
+        [NWNEventHandler(VALIDATE_USE_ITEM_BEFORE)]
+        [NWNEventHandler(VALIDATE_USE_ITEM_AFTER)]
+        public static void EventHandler(string script) {
+            var e = new ValidateUseItemEvent(script);
+            switch (script) {
+                case VALIDATE_USE_ITEM_BEFORE:
+                    BeforeValidateUseItem(e);
+                    break;
+                case VALIDATE_USE_ITEM_AFTER:
+                    AfterValidateUseItem(e);
+                    break;
             }
         }
-        public class ValidateEquipItemEvent : NWNXEvent {
-            public delegate void EventDelegate(ValidateEquipItemEvent e);
+    }
+    public class ValidateEquipItemEvent : NWNXEvent {
+        public delegate void EventDelegate(ValidateEquipItemEvent e);
 
-            public const string VALIDATE_ITEM_EQUIP_BEFORE = "NWNX_ON_VALIDATE_ITEM_EQUIP_BEFORE";
-            public const string VALIDATE_ITEM_EQUIP_AFTER = "NWNX_ON_VALIDATE_ITEM_EQUIP_AFTER";
+        public const string VALIDATE_ITEM_EQUIP_BEFORE = "NWNX_ON_VALIDATE_ITEM_EQUIP_BEFORE";
+        public const string VALIDATE_ITEM_EQUIP_AFTER = "NWNX_ON_VALIDATE_ITEM_EQUIP_AFTER";
 
-            public static EventDelegate BeforeValidateEquipItem = delegate { };
-            public static EventDelegate AfterValidateEquipItem = delegate { };
+        public static EventDelegate BeforeValidateEquipItem = delegate { };
+        public static EventDelegate AfterValidateEquipItem = delegate { };
 
-            public ValidateEquipItemEvent(string script) {
-                EventType = script;
-            }
+        public ValidateEquipItemEvent(string script) {
+            EventType = script;
+        }
 
-            public override bool Skippable => true;
+        public override bool Skippable => true;
 
-            public NWCreature User => Internal.OBJECT_SELF.AsCreature();
-            public NWItem Item => GetEventObject("ITEM_OBJECT_ID").AsItem();
-            public Enums.InventorySlot Slot => (Enums.InventorySlot) GetEventInt("SLOT");
-            public bool BeforeResult => GetEventInt("BEFORE_RESULT") == 1;
+        public NWCreature User => Internal.OBJECT_SELF.AsCreature();
+        public NWItem Item => GetEventObject("ITEM_OBJECT_ID").AsItem();
+        public Enums.InventorySlot Slot => (Enums.InventorySlot)GetEventInt("SLOT");
+        public bool BeforeResult => GetEventInt("BEFORE_RESULT") == 1;
 
-            [NWNEventHandler(VALIDATE_ITEM_EQUIP_BEFORE)]
-            [NWNEventHandler(VALIDATE_ITEM_EQUIP_AFTER)]
-            public static void EventHandler(string script) {
-                var e = new ValidateEquipItemEvent(script);
-                switch (script) {
-                    case VALIDATE_ITEM_EQUIP_BEFORE:
-                        BeforeValidateEquipItem(e);
-                        break;
-                    case VALIDATE_ITEM_EQUIP_AFTER:
-                        AfterValidateEquipItem(e);
-                        break;
-                }
+        [NWNEventHandler(VALIDATE_ITEM_EQUIP_BEFORE)]
+        [NWNEventHandler(VALIDATE_ITEM_EQUIP_AFTER)]
+        public static void EventHandler(string script) {
+            var e = new ValidateEquipItemEvent(script);
+            switch (script) {
+                case VALIDATE_ITEM_EQUIP_BEFORE:
+                    BeforeValidateEquipItem(e);
+                    break;
+                case VALIDATE_ITEM_EQUIP_AFTER:
+                    AfterValidateEquipItem(e);
+                    break;
             }
         }
+    }
     public class ItemUseLoreEvent : NWNXEvent {
         public delegate void EventDelegate(ItemUseLoreEvent e);
 
