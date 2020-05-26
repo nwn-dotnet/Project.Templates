@@ -365,15 +365,17 @@ namespace NWN {
         ///   - nDamageType: DAMAGE_TYPE_*
         ///   * Default value for nDamageType should only ever be used in this function prototype.
         /// </summary>
-        public static Effect EffectACIncrease(int nValue,
-          ArmorClassModiferType nModifyType = ArmorClassModiferType.Dodge,
-          DamageType nDamageType = DamageType.Magical) {
+        public static Effect EffectACIncrease(
+            int nValue,
+            ArmorClassModiferType nModifyType = ArmorClassModiferType.Dodge,
+            AC nDamageType = AC.VsDamageTypeAll) {
             Internal.NativeFunctions.StackPushInteger((int)nDamageType);
             Internal.NativeFunctions.StackPushInteger((int)nModifyType);
             Internal.NativeFunctions.StackPushInteger(nValue);
             Internal.NativeFunctions.CallBuiltIn(115);
             return new Effect(Internal.NativeFunctions.StackPopEffect());
         }
+
 
         /// <summary>
         ///   Get the first in-game effect on oCreature.
@@ -906,9 +908,10 @@ namespace NWN {
         ///   - nDamageType: DAMAGE_TYPE_*
         ///   * Default value for nDamageType should only ever be used in this function prototype.
         /// </summary>
-        public static Effect EffectACDecrease(int nValue,
-          ArmorClassModiferType nModifyType = ArmorClassModiferType.Dodge,
-          DamageType nDamageType = DamageType.Magical) {
+        public static Effect EffectACDecrease(
+            int nValue,
+            ArmorClassModiferType nModifyType = ArmorClassModiferType.Dodge,
+            AC nDamageType = AC.VsDamageTypeAll) {
             Internal.NativeFunctions.StackPushInteger((int)nDamageType);
             Internal.NativeFunctions.StackPushInteger((int)nModifyType);
             Internal.NativeFunctions.StackPushInteger(nValue);
