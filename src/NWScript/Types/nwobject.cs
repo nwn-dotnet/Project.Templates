@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Object = NWN.NWNX.Object;
 
 namespace NWN {
-    public class NWObject : NWObjectBase {
+    public partial class NWObject : NWObjectBase {
         public NWObject(uint oid) : base(oid) {
         }
 

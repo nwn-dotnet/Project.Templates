@@ -3,7 +3,7 @@ using NWN.NWNX;
 using System.Collections.Generic;
 
 namespace NWN {
-    public class NWItem : NWObject {
+    public partial class NWItem : NWObject {
         public NWItem(uint oid) : base(oid) {
         }
 

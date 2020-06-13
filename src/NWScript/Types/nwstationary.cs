@@ -1,7 +1,7 @@
 using NWN.NWNX;
 
 namespace NWN {
-    public class NWStationary : NWTrappable {
+    public partial class NWStationary : NWTrappable {
         public NWStationary(uint oid) : base(oid) {
         }
 

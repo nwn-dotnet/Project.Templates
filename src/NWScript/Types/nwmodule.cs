@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 namespace NWN {
-    public class NWModule : NWObjectBase {
+    public partial class NWModule : NWObjectBase {
         public static NWModule Module = new NWModule(0);
 
         public NWModule(uint oid) : base(oid) {

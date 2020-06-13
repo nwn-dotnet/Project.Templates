@@ -3,7 +3,7 @@ using NWN.NWNX.Enum;
 using System.Collections.Generic;
 
 namespace NWN {
-    public class NWPlayer : NWCreature {
+    public partial class NWPlayer : NWCreature {
         public NWPlayer(uint oid) : base(oid) {
         }
 
