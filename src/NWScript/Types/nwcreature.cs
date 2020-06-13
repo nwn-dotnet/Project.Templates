@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace NWN {
-    public class NWCreature : NWObject {
+    public partial class NWCreature : NWObject {
         public Abilities Ability;
 
         public EquippedItems Equipped;

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace NWN {
     // NWArea DOES NOT inherit from NWObject
-    public class NWArea : NWObjectBase {
+    public partial class NWArea : NWObjectBase {
         public NWArea(uint oid) : base(oid) {
         }
 

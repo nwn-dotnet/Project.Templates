@@ -1,7 +1,7 @@
 using NWN.NWNX;
 
 namespace NWN {
-    public class NWPlaceable : NWStationary {
+    public partial class NWPlaceable : NWStationary {
         public NWPlaceable(uint oid) : base(oid) {
         }
 

@@ -3,7 +3,7 @@ using NWN.Enums;
 namespace NWN {
     using System;
 
-    public class NWObjectBase {
+    public partial class NWObjectBase {
         public const uint OBJECT_INVALID = 0x7F000000;
 
         public AllLocals Locals;

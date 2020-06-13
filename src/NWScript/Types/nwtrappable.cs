@@ -1,5 +1,5 @@
 namespace NWN {
-    public class NWTrappable : NWObject {
+    public partial class NWTrappable : NWObject {
         public NWTrappable(uint oid) : base(oid) {
         }
 
