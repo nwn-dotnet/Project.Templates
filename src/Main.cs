@@ -53,7 +53,8 @@ namespace NWN {
             // This switch statement illustrates how the template prompts individual script calls. Most 
             // implementations will split this logic into a Dictionary or other sensible arrangement. Note that 
             // a script does not need to be in the module for its name to be assigned. Many DotNET modules 
-            // have no .nss or .ncs files at all.
+            // have no .nss or .ncs files at all. Note that script names must always be shorter than 16
+            // characters by an internal engine limitation.
             switch (script) {
                 // An ordinary script. No return value set.
                 case "x2_mod_def_load":
