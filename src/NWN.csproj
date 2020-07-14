@@ -15,4 +15,8 @@
             <AllOutputs Include="$(OutputPath)$(MSBuildProjectName).deps.json" />
         </ItemGroup>
     </Target>
+
+    <ItemGroup>
+      <PackageReference Include="NWN.Core" Version="8193.13.1" />
+    </ItemGroup>
 </Project>
