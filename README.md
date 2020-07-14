@@ -1,4 +1,4 @@
-# NWN Dotnet Barebone Template #
+# NWN .NET Barebone Template #
 This is a minimal (one file) implementation of NWNXEE DotNet using the [NWN.Core](https://github.com/nwn-dotnet/NWN.Core) library. It is intended for those who would like to build their own implementations from the ground up. See documentation in comments.
 
 ### Credits ###
