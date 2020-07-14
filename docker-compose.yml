@@ -1,32 +1,6 @@
 version: '3.7'
 services:
-
-  influxdb:
-    hostname: influxdb
-    image: influxdb:1.7
-    restart: unless-stopped
-    env_file: ${PWD-.}/config/influxdb.env
-    volumes:
-    - ${PWD-.}/Data/influxdb:/var/lib/influxdb
-    networks:
-    - backend
-    # this can be removed if you want to see influx logs when debugging
-    logging:
-        driver: "none"
-
-  redis:
-    hostname: redis
-    image: redis:5-alpine
-    command: ["redis-server", "--appendonly", "no"]
-    volumes:
-    - ${PWD-.}/Data/redis:/data
-    restart: unless-stopped
-    networks:
-    - backend
-    # this can be removed if you want to see redis logs when debugging
-    logging:
-        driver: "none"
-
+      
   nwserver:
     hostname: nwserver
     build:
