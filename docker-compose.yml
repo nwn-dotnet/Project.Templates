@@ -1,6 +1,5 @@
 version: '3.7'
 services:
-      
   nwserver:
     hostname: nwserver
     build:
@@ -13,8 +12,3 @@ services:
     - ${PWD-.}/logs:/nwn/data/bin/linux-x86/logs.0
     ports:
     - '5121:5121/udp'
-    networks:
-    - backend
-
-networks:
-    backend:
