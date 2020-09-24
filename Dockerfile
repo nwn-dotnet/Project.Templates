@@ -5,6 +5,6 @@ WORKDIR /Build
 RUN dotnet publish -c Release
 
 # Build the final NWN server image (Version: 8193.12)
-FROM nwnxee/unified:581cdfa
-LABEL maintainer "urothis@gmail.com"
+FROM nwnxee/unified:c64661b
+LABEL maintainer="urothis"
 COPY --from=build /Build/bin/Release/netcoreapp3.1/publish /nwn/data/data/
