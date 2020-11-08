@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>dotnet5.0</TargetFramework>
-        <EnableDynamicLoading>true</EnableDynamicLoading>
+        <TargetFramework>net5.0</TargetFramework>
         <LangVersion>9.0</LangVersion>
+        <EnableDynamicLoading>true</EnableDynamicLoading>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
