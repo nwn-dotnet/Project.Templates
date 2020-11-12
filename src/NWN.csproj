@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFramework>net5.0</TargetFramework>
+        <LangVersion>9.0</LangVersion>
         <EnableDynamicLoading>true</EnableDynamicLoading>
-        <LangVersion>8.0</LangVersion>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
@@ -13,10 +13,11 @@
             <AllOutputs Include="$(OutputPath)$(MSBuildProjectName).pdb" />
             <AllOutputs Include="$(OutputPath)$(MSBuildProjectName).runtimeconfig.json" />
             <AllOutputs Include="$(OutputPath)$(MSBuildProjectName).deps.json" />
+            <AllOutputs Include="$(OutputPath)$(MSBuildProjectName).deps.json" />
         </ItemGroup>
     </Target>
 
     <ItemGroup>
-      <PackageReference Include="NWN.Core" Version="8193.16.8" />
+      <PackageReference Include="NWN.Core" Version="8193.16.9" />
     </ItemGroup>
 </Project>
