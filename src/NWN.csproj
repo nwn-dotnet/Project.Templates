@@ -18,6 +18,6 @@
     </Target>
 
     <ItemGroup>
-      <PackageReference Include="NWN.Core" Version="8193.22.4" />
+      <PackageReference Include="NWN.Core" Version="8193.30.1" />
     </ItemGroup>
 </Project>
