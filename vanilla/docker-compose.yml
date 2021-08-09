@@ -2,10 +2,11 @@ version: '3.7'
 services:
   nwserver:
     hostname: nwserver
-    build:
-      context: ./
+    # reference https://hub.docker.com/r/beamdog/nwserver/tags for more precise versioning
+    image: beamdog/nwserver:latest
     restart: unless-stopped
-    env_file: ${PWD-.}/config/nwserver.env
+    environment:
+    - NWN_SERVERNAME=Docker Template
     volumes:
     - ${PWD-.}/server/:/nwn/home
     - ${PWD-.}/logs:/nwn/run/logs.0
